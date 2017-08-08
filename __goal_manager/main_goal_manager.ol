@@ -148,6 +148,7 @@ main {
 		  sleep@Time( 100 )(); // required for giving time to the embedded to prepare the run operation to receive
 		  run@Goal( run_request )( response );
 			println@Console("SUCCESS: " + request.name )();
+			println@Console( Orchestrator.location )();
 		  println@Orchestrator("SUCCESS: " + request.name )()
 	  }
   }] {
