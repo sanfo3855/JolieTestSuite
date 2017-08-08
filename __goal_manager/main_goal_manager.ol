@@ -21,6 +21,12 @@ outputPort Goal {
 Interfaces: GoalInterface
 }
 
+outputPort Orchestrator {
+Location: "socket://localhost:10000"
+Protocol: sodep
+RequestResponse: println( string )( void )
+}
+
 embedded {
 Jolie:
 	  "./__data_retriever/main_data_retriever.ol" in DataRetriever
@@ -61,9 +67,9 @@ main {
 	  filename = "";
 	  scope( get_goal ) {
 
-		  install( ExecutionFault => println@Console("TEST FAILED! : " + request.name )();
+		  install( ExecutionFault => println@Orchestrator("TEST FAILED! : " + request.name )();
 					     valueToPrettyString@StringUtils( get_goal.ExecutionFault )( s );
-					     println@Console( s )();
+					     println@Orchestrator( s )();
 					     throw( ExecutionFault, get_goal.ExecutionFault )
 		  );
 		  install( FileNotFound =>   fault.goal_name = request.name;
@@ -138,7 +144,7 @@ main {
 		  };
 		  sleep@Time( 100 )(); // required for giving time to the embedded to prepare the run operation to receive
 		  run@Goal( run_request )( response );
-		  println@Console("SUCCESS: " + request.name )()
+		  println@Orchestrator("SUCCESS: " + request.name )()
 	  }
   }] {
 	__delete
