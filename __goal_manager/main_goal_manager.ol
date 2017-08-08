@@ -22,7 +22,7 @@ Interfaces: GoalInterface
 }
 
 outputPort Orchestrator {
-Location: "socket://localhost:10000"
+Location: "socket://172.17.0.1:10000"
 Protocol: sodep
 RequestResponse: println( string )( void )
 }
@@ -67,8 +67,11 @@ main {
 	  filename = "";
 	  scope( get_goal ) {
 
-		  install( ExecutionFault => println@Orchestrator("TEST FAILED! : " + request.name )();
+		  install( ExecutionFault =>
+							 println@Console("TEST FAILED! : " + request.name )();
+							 println@Orchestrator("TEST FAILED! : " + request.name )();
 					     valueToPrettyString@StringUtils( get_goal.ExecutionFault )( s );
+							 println@Console("TEST FAILED! : " + request.name )();
 					     println@Orchestrator( s )();
 					     throw( ExecutionFault, get_goal.ExecutionFault )
 		  );
@@ -144,6 +147,7 @@ main {
 		  };
 		  sleep@Time( 100 )(); // required for giving time to the embedded to prepare the run operation to receive
 		  run@Goal( run_request )( response );
+			println@Console("SUCCESS: " + request.name )();
 		  println@Orchestrator("SUCCESS: " + request.name )()
 	  }
   }] {
