@@ -22,7 +22,7 @@ Interfaces: GoalInterface
 }
 
 outputPort Orchestrator {
-Location: "socket://0.0.0.0:10000"
+Location: "socket://172.17.0.1:10000"
 Protocol: sodep
 RequestResponse: println( string )( void )
 }
