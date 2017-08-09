@@ -1,6 +1,6 @@
 
 
-include "../public/interfaces/console.iol"
+include "console.iol"
 include "runtime.iol"
 include "file.iol"
 include "string_utils.iol"
