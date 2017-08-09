@@ -5,5 +5,5 @@ outputPort Console {
 
 embedded {
   Jolie:
-    "console-imp.iol" in Console
+    "./console-imp.iol" in Console
 }
