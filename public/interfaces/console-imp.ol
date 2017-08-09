@@ -11,6 +11,8 @@ Protocol: sodep
 RequestResponse: println( string )( void )
 }
 
+execution{ concurrent }
+
 main
 {
   [println ( request )( response ){
