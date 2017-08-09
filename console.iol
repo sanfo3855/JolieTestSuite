@@ -1,6 +1,14 @@
 
+
 outputPort Console {
-  RequestResponse: println( string )( void )
+  RequestResponse:
+    println( string )( void ),
+    subscribeSessionListener( string )( void ),
+    enableTimestamp( bool )( void ),
+    registerForInput( bool )( void ),
+    print( string )( void),
+    unsubscribeSessionListener( string )( void )
+
 }
 
 embedded {
