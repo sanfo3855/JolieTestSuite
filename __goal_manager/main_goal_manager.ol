@@ -1,6 +1,6 @@
 
 
-include "console.iol"
+include "../public/interfaces/console.iol"
 include "runtime.iol"
 include "file.iol"
 include "string_utils.iol"
@@ -21,11 +21,11 @@ outputPort Goal {
 Interfaces: GoalInterface
 }
 
-outputPort Orchestrator {
+/*outputPort Orchestrator {
 Location: "socket://172.17.0.1:10000"
 Protocol: sodep
 RequestResponse: println( string )( void )
-}
+}*/
 
 embedded {
 Jolie:
@@ -69,10 +69,10 @@ main {
 
 		  install( ExecutionFault =>
 							 println@Console("TEST FAILED! : " + request.name )();
-							 println@Orchestrator("TEST FAILED! : " + request.name )();
+							 //println@Orchestrator("TEST FAILED! : " + request.name )();
 					     valueToPrettyString@StringUtils( get_goal.ExecutionFault )( s );
 							 println@Console("TEST FAILED! : " + request.name )();
-					     println@Orchestrator( s )();
+					     //println@Orchestrator( s )();
 					     throw( ExecutionFault, get_goal.ExecutionFault )
 		  );
 		  install( FileNotFound =>   fault.goal_name = request.name;
@@ -147,9 +147,8 @@ main {
 		  };
 		  sleep@Time( 100 )(); // required for giving time to the embedded to prepare the run operation to receive
 		  run@Goal( run_request )( response );
-			println@Console("SUCCESS: " + request.name )();
-			println@Console( Orchestrator.location )();
-		  println@Orchestrator("SUCCESS: " + request.name )()
+			println@Console("SUCCESS: " + request.name )()//;
+		  //println@Orchestrator("SUCCESS: " + request.name )()
 	  }
   }] {
 	__delete
