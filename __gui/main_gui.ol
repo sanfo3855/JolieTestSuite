@@ -13,9 +13,6 @@ Protocol: sodep
 Interfaces: GUIInterface
 }
 
-init {
-  //println@Console("GUI is running...")()
-}
 
 main {
   [ getInfo( request )( response ) {
