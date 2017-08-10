@@ -14,7 +14,7 @@ Interfaces: GUIInterface
 }
 
 init {
-  println@Console("GUI is running...")()
+  //println@Console("GUI is running...")()
 }
 
 main {
