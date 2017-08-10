@@ -56,22 +56,22 @@ init {
   global.GOAL_DIRECTORY = request.goal_directory;
   global.ABSTRACT_GOAL = request.abstract_goal;
   getLocalLocation@Runtime()( global.localGoalManagerLocation );
-  println@Console("GoalManager is running...")();
+  //println@Console("GoalManager is running...")();
   install( ExecutionFault => __delete );
   install( GoalNotFound => __delete )
 }
 
 main {
   [ goal( request )( response ) {
-	  println@Console("TESTING " + request.name + "...")();
+	  println@Console(" TESTING " + request.name + "...")();
 	  filename = "";
 	  scope( get_goal ) {
 
 		  install( ExecutionFault =>
-							 println@Console("TEST FAILED! : " + request.name )();
+							 println@Console(" TEST FAILED! : " + request.name )();
 							 //println@Orchestrator("TEST FAILED! : " + request.name )();
 					     valueToPrettyString@StringUtils( get_goal.ExecutionFault )( s );
-							 println@Console("TEST FAILED! : " + request.name )();
+							 println@Console(" TEST FAILED! : " + request.name )();
 					     //println@Orchestrator( s )();
 					     throw( ExecutionFault, get_goal.ExecutionFault )
 		  );
@@ -147,7 +147,7 @@ main {
 		  };
 		  sleep@Time( 100 )(); // required for giving time to the embedded to prepare the run operation to receive
 		  run@Goal( run_request )( response );
-			println@Console("SUCCESS: " + request.name )()//;
+			println@Console(" SUCCESS: " + request.name )()//;
 		  //println@Orchestrator("SUCCESS: " + request.name )()
 	  }
   }] {

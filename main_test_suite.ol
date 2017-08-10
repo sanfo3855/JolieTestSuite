@@ -50,6 +50,10 @@ constants {
   TEST_SUITE_DIRECTORY = "./test_suite/"
 }
 
+init {
+  println@Console( "---> RUNNING TEST" )()
+}
+
 main {
 	  with( init_gm ) {
 		  .location = ClientLocation;
