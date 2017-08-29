@@ -21,12 +21,6 @@ outputPort Goal {
 Interfaces: GoalInterface
 }
 
-/*outputPort Orchestrator {
-Location: "socket://172.17.0.1:10000"
-Protocol: sodep
-RequestResponse: println( string )( void )
-}*/
-
 embedded {
 Jolie:
 	  "./__data_retriever/main_data_retriever.ol" in DataRetriever
