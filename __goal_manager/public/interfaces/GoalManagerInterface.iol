@@ -6,6 +6,7 @@ type GoalRequest: void {
       .name: string
       .request_message?: undefined
       .dataname?: string
+      .enableFault?: bool
 }
 
 type InitializeRequest: void {
