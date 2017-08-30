@@ -57,7 +57,7 @@ init {
 
 main {
   [ goal( request )( response ) {
-	  println@Console(" GOAL: " + request.name + " >> TESTING")();
+	  println@Console(" START GOAL: " + request.name )();
 	  filename = "";
 	  scope( get_goal ) {
 
@@ -141,7 +141,7 @@ main {
 		  };
 		  sleep@Time( 100 )(); // required for giving time to the embedded to prepare the run operation to receive
 		  run@Goal( run_request )( response );
-			println@Console(" GOAL: " + request.name + " << TESTED")()//;
+			println@Console(" TESTED GOAL: " + request.name )()//;
 		  //println@Orchestrator("SUCCESS: " + request.name )()
 	  }
   }] {
