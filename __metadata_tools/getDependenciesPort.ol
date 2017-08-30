@@ -13,7 +13,7 @@ define __getCustomOutputPort
     }
   };
   j=0;
-  println@Console( "\n  " )()
+  println@Console( "" )()
 }
 
 define __getCustomInterfaces
@@ -27,7 +27,7 @@ define __getCustomInterfaces
     }
   };
   j=0;
-  println@Console( "\n  " )()
+  println@Console( "" )()
 }
 
 define __getTypes
