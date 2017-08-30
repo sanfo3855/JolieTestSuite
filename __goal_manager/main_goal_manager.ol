@@ -57,7 +57,7 @@ init {
 
 main {
   [ goal( request )( response ) {
-	  println@Console(" START GOAL: " + request.name )();
+	  println@Console(" STARTING GOAL: " + request.name )();
 	  filename = "";
 	  scope( get_goal ) {
 
