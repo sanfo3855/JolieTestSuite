@@ -57,15 +57,15 @@ init {
 
 main {
   [ goal( request )( response ) {
-	  println@Console(" TESTING " + request.name + "...")();
+	  println@Console(" GOAL: " + request.name + " >> TESTING")();
 	  filename = "";
 	  scope( get_goal ) {
 
 		  install( ExecutionFault =>
-							 println@Console(" TEST FAILED! : " + request.name )();
+							 println@Console(" TESTING GOAL FAILED! : " + request.name )();
 							 //println@Orchestrator("TEST FAILED! : " + request.name )();
 					     valueToPrettyString@StringUtils( get_goal.ExecutionFault )( s );
-							 println@Console(" TEST FAILED! : " + request.name )();
+							 println@Console(" TEST GOAL FAILED! : " + request.name )();
 					     //println@Orchestrator( s )();
 					     throw( ExecutionFault, get_goal.ExecutionFault )
 		  );
@@ -141,7 +141,7 @@ main {
 		  };
 		  sleep@Time( 100 )(); // required for giving time to the embedded to prepare the run operation to receive
 		  run@Goal( run_request )( response );
-			println@Console(" SUCCESS: " + request.name )()//;
+			println@Console(" GOAL: " + request.name + " << TESTED")()//;
 		  //println@Orchestrator("SUCCESS: " + request.name )()
 	  }
   }] {
