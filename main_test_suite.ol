@@ -51,7 +51,8 @@ constants {
 }
 
 init {
-  println@Console( "---> RUNNING TEST" )()
+  println@Console( "---> RUNNING TEST" )();
+  global.tab = 0
 }
 
 main {

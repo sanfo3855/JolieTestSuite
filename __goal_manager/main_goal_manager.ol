@@ -57,16 +57,42 @@ init {
 
 main {
   [ goal( request )( response ) {
+		for(i=0, i<global.tab, i++){
+			print@Console( "   " )()
+		};
 	  println@Console(" TESTING " + request.name + "...")();
 	  filename = "";
+		checkStart = request.name;
+		checkStart.prefix = "/";
+		startsWith@StringUtils( checkStart )( resStartsWith );
+		if( !resStartsWith ){
+			global.tab++
+		};
 	  scope( get_goal ) {
 
 		  install( ExecutionFault =>
+							 if( !resStartsWith ){
+								 global.tab--
+							 };
+							 for(i=0, i<global.tab, i++){
+							   print@Console( "   " )()
+						   };
 							 println@Console(" TEST FAILED! : " + request.name )();
-							 //println@Orchestrator("TEST FAILED! : " + request.name )();
-					     valueToPrettyString@StringUtils( get_goal.ExecutionFault )( s );
-							 println@Console(" TEST FAILED! : " + request.name )();
-					     //println@Orchestrator( s )();
+					     //valueToPrettyString@StringUtils( get_goal.ExecutionFault )( s );
+							 for(i=0, i<global.tab, i++){
+							   print@Console( "    " )()
+						   };
+							 if(global.tab == 0){
+								 print@Console( " " )()
+							 };
+							 println@Console( "---" + get_goal.ExecutionFault.faultname + "---" )();
+							 for(i=0, i<global.tab, i++){
+							   print@Console( "    " )()
+						   };
+							 if(global.tab == 0){
+								 print@Console( " " )()
+							 };
+							 println@Console( get_goal.ExecutionFault.message )();
 					     throw( ExecutionFault, get_goal.ExecutionFault )
 		  );
 		  install( FileNotFound =>   fault.goal_name = request.name;
@@ -141,7 +167,14 @@ main {
 		  };
 		  sleep@Time( 100 )(); // required for giving time to the embedded to prepare the run operation to receive
 		  run@Goal( run_request )( response );
-			println@Console(" SUCCESS: " + request.name )()//;
+			if( !resStartsWith ){
+					global.tab--
+			};
+			for(i=0, i<global.tab, i++){
+				print@Console( "   " )()
+			};
+			println@Console(" SUCCESS: " + request.name )()
+
 		  //println@Orchestrator("SUCCESS: " + request.name )()
 	  }
   }] {
