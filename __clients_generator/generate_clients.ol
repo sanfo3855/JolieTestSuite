@@ -45,6 +45,6 @@ main {
 	  };
 	  generate@ClientGenerator( request )()
       } else {
-	  println@Console("Usage jolie generate_clients.ol sourcefile target_folder generate_data (yes/no)")()
+	  println@Console(/*"Usage jolie generate_clients.ol sourcefile target_folder generate_data (yes/no)"*/)()
       }
 }
