@@ -1,3 +1,26 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                                                    *
+* Copyright (C) 2016 Claudio Guidi <guidiclaudio@gmail.com>                          *
+*                                                                                    *
+* Permission is hereby granted, free of charge, to any person obtaining a copy of    *
+* this software and associated documentation files (the "Software"), to deal in the  *
+* Software without restriction, including without limitation the rights to use,      *
+* copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the    *
+* Software, and to permit persons to whom the Software is furnished to do so, subject*
+* to the following conditions:                                                       *
+*                                                                                    *
+* The above copyright notice and this permission notice shall be included in all     *
+* copies or substantial portions of the Software.                                    *
+*                                                                                    *
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,*
+* INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A      *
+* PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT *
+* HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION  *
+* OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE     *
+* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                             *
+*                                                                                    *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 include "./public/interfaces/RequestParserInterface.iol"
 
 include "runtime.iol"
@@ -15,7 +38,7 @@ Location: "local"
 Interfaces: RequestParserInterface
 }
 
-constants {		
+constants {
     SAMPLE_INT = "42",
     SAMPLE_DOUBLE = "42.42",
     SAMPLE_LONG = "123456789",
@@ -98,7 +121,7 @@ main {
 		      current_type << request.type_hashmap.( request.type_name )
 		};
 		// root
-		
+
 		if ( request.type_name == "undefined" ) {
 			response.rows[ 0 ] = request.node_name + "=\"\""
 		} else {
@@ -125,7 +148,7 @@ main {
 			  response.rows[ #response.rows ] = res.rows[ r ]
 		    }
 		}
-	  } 
+	  }
     }] { nullProcess }
 
     [ getSubType( request )( response ) {
@@ -147,7 +170,7 @@ main {
 		for( index = 0, index < max, index++ ) {
 		      //println@Console("index " + index )();
 		      undef( is_inline );
-		      if ( is_defined( request.subtype.type_inline ) ) {	
+		      if ( is_defined( request.subtype.type_inline ) ) {
 			    is_inline = true;
 			    is_inline.inline_type << request.subtype.type_inline;
 			    type_name = request.subtype.type_inline.name.name
@@ -160,7 +183,7 @@ main {
 			  .type_name = type_name;
 			  .node_name = cur_node_name + "[" + index + "]";
 			  .type_hashmap -> request.type_hashmap;
-			  .nested_level = request.nested_level + 1 
+			  .nested_level = request.nested_level + 1
 		      };
 		      getType@MySelf( req )( res );
 		      for( r = 0, r < #res.rows, r++ ) {

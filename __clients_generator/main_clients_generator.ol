@@ -1,3 +1,26 @@
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                                                    *
+* Copyright (C) 2016 Claudio Guidi <guidiclaudio@gmail.com>                          *
+*                                                                                    *
+* Permission is hereby granted, free of charge, to any person obtaining a copy of    *
+* this software and associated documentation files (the "Software"), to deal in the  *
+* Software without restriction, including without limitation the rights to use,      *
+* copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the    *
+* Software, and to permit persons to whom the Software is furnished to do so, subject*
+* to the following conditions:                                                       *
+*                                                                                    *
+* The above copyright notice and this permission notice shall be included in all     *
+* copies or substantial portions of the Software.                                    *
+*                                                                                    *
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,*
+* INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A      *
+* PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT *
+* HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION  *
+* OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE     *
+* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                             *
+*                                                                                    *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 include "./public/interfaces/RequestParserInterface.iol"
 include "./public/interfaces/TestSuiteClientGenerationInterface.iol"
 
@@ -58,7 +81,7 @@ define __create_clients {
 		  content = "include \"" + http_test_suite_location + __input.name.name + "/testport_surface.iol\"\n";
 		  content = content + "init{ install( ExecutionFault => nullProcess ) }\n";
 		  content = content + "main{\nrun( request )( response ) {\n";
-		  content = content + "scope( test ) { install( default => valueToPrettyString@StringUtils( test )( s ); fault.faultname=test.default; fault.message = \"Error during execution of " + __cur_operation.operation_name +",\" + s; throw( ExecutionFault, fault ) );\n"; 
+		  content = content + "scope( test ) { install( default => valueToPrettyString@StringUtils( test )( s ); fault.faultname=test.default; fault.message = \"Error during execution of " + __cur_operation.operation_name +",\" + s; throw( ExecutionFault, fault ) );\n";
 		  content = content + __cur_operation.operation_name + "@" + __input.name.name +"( request )( response )\n";
 		  content = content + "}}\n}\n";
 		  with( file ) {
@@ -75,10 +98,10 @@ define __create_surface {
       getSurface@Parser( __input )( surface );
       with( surface_file ) {
 	    .filename = dir_name + "/testport_surface.iol";
-	    .content -> surface 
+	    .content -> surface
       };
       writeFile@File( surface_file )()
-      
+
 }
 
 define __create_local_abstract {
@@ -91,7 +114,7 @@ define __create_local_abstract {
 }
 
 define __generate {
-      
+
       dir_name = request.target_folder + __input.name.name;
       mkdir@File( dir_name )();
       mkdir@File( dir_name + "/data" )();
@@ -101,7 +124,7 @@ define __generate {
 }
 
 main {
-      generate( request )( response ) {    
+      generate( request )( response ) {
 	    scope( readfile ) {
 		  http_test_suite_location = request.http_test_suite_location;
 		  generate_data = request.generate_data;
@@ -114,13 +137,13 @@ main {
 
 		  valueToPrettyString@StringUtils( __inputs )( s );
 		  println@Console( s )();
-		  
+
 		  for( i = 0, i < #__inputs.input, i++ ) {
 			  println@Console( "Generating clients for input port " + __inputs.input[ i ].name.name )();
 
 			  __input -> __inputs.input[ i ];
 			  __generate
 		  }
-	    }	    
+	    }
       }
 }
